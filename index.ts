@@ -1,18 +1,15 @@
-import 'dotenv/config';
+import { addMessages, getMessages } from './src/memory.ts';
 import { runLLM } from './src/llm.ts';
-import { addMessages } from './src/memory.ts';
-const userMessage = process.argv[2]
+
+const userMessage = process.argv[2];
 
 if (!userMessage) {
   console.error('Please provide a message');
   process.exit(1);
 }
 
-await addMessages([{role: 'user', content: userMessage}])
-const messages = await getMessages()
+await addMessages([{ role: 'user', content: userMessage }]);
+const messages = await getMessages(); 
+const response = await runLLM({ messages }); 
 
-const response = await runLLM({
-  messages,
-})
-
-console.log(response)
+console.log(response);
