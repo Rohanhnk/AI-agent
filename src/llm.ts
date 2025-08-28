@@ -1,19 +1,21 @@
-import type { AIMessage } from "../types";
-import { genAI } from "./ai";
+import type { AIMessage } from '../types'
+import { genAI } from './ai'
 
-export const runLLM = async ({ messages, tools }: { messages: AIMessage[], tools: any[] }) => {
-  
+export const runLLM = async ({
+  messages,
+  tools,
+}: {
+  messages: AIMessage[]
+  tools: any[]
+}) => {
   const model = genAI.getGenerativeModel({
-    model: "models/gemini-1.5-flash",
-    tools,
-  });
+    model: 'models/gemini-1.5-flash',
+  })
 
-  const prompt = messages
-    .map(msg => `${msg.role}: ${msg.content}`)
-    .join("\n");
+  const prompt = messages.map((msg) => `${msg.role}: ${msg.content}`).join('\n')
 
-  const result = await model.generateContent(prompt);
-  const response = result.response;
+  const result = await model.generateContent(prompt)
+  const response = result.response
 
-  return response.text();
-};
+  return response.text()
+}
