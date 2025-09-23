@@ -21,6 +21,10 @@ const weatherTool = {
   }
 };
 
-const response = await runAgent({ userMessage, tools: [weatherTool] })
-
-console.log(response);
+const messages = await runAgent({ userMessage, tools: [weatherTool] })
+const assistantReply = messages[messages.length - 1]
+if (assistantReply.role === 'assistant') {
+  console.log(assistantReply.content)
+} else {
+  console.log('No assistant reply found.')
+}

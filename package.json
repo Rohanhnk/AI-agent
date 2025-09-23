@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.6.1",
     "got": "^14.4.4",
     "lowdb": "^7.0.1",
     "openai": "^4.70.3",

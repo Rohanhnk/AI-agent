@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext"],
+  "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
     "target": "ESNext",
     "module": "ESNext",
     "moduleDetection": "force",
@@ -8,7 +8,8 @@
     "allowJs": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+  "moduleResolution": "bundler",
+  "types": ["node"],
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
