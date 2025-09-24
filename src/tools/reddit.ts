@@ -1,4 +1,4 @@
-import type { ToolFn } from '../types';
+import type { ToolFn } from '../../types';
 import { z } from 'zod';
 import fetch from 'node-fetch';
 

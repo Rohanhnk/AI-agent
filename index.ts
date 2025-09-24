@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import {z} from 'zod';
 import { runAgent } from './src/agent';
+import {tools} from './src/tools'
 
 const userMessage = process.argv[2];
 
@@ -9,19 +9,10 @@ if (!userMessage) {
   process.exit(1);
 }
 
-const weatherTool = {
-  name: 'get_weather',
-  description: 'Get the current weather for a city.',
-  parameters: {
-    type: 'object',
-    properties: {
-      city: { type: 'string', description: 'Name of the city' }
-    },
-    required: ['city']
-  }
-};
 
-const messages = await runAgent({ userMessage, tools: [weatherTool] })
+
+
+const messages = await runAgent({ userMessage, tools})
 const assistantReply = messages[messages.length - 1]
 if (assistantReply.role === 'assistant') {
   console.log(assistantReply.content)
