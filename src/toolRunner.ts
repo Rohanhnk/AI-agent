@@ -1,5 +1,8 @@
 // Example tool function
-const getWeather = () => 'cole,-10deg'
+// Example tool function
+import { generateImage, generateImagesToolDefinition } from './tools/generateImage';
+import { reddit, redditToolDefinition } from './tools/reddit';
+import { dadJoke, dadJokeToolDefinition } from './tools/dadJoke';
 
 // Gemini-compatible tool call structure: { name: string, arguments: string }
 export const runTool = async (
@@ -12,9 +15,13 @@ export const runTool = async (
   }
 
   switch (toolCall.name) {
-    case 'getWeather':
-      return getWeather(input)
+    case generateImagesToolDefinition.name:
+      return generateImage(input);
+    case redditToolDefinition.name:
+      return reddit(input);
+    case dadJokeToolDefinition.name:
+      return dadJoke(input);
     default:
-      throw new Error(`Unknown tool: ${toolCall.name}`)
+      return `Never run this tool: ${toolCall.name} again, or else!`;
   }
 }

@@ -17,8 +17,8 @@ export const runAgent = async ({
   const response = await runLLM({ messages: history, tools })
   const assistantMessage = {
     role: 'assistant',
-    content: response,
-  } as import('../types').AIMessage
+    content: response ?? '',
+  } as AIMessage
   await addMessages([assistantMessage])
   logMessage(assistantMessage)
   loader.stop()

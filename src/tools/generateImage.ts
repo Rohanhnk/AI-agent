@@ -15,7 +15,7 @@ export const generateImagesToolDefinition = {
 type Args = z.infer<typeof generateImagesToolDefinition.parameters>;
 
 export const generateImage: ToolFn<Args, string> = async ({ toolArgs }) => {
-    const model = genAI.getGenerativeModel({ model: 'models/gemini-1.5-pro' });
+    const model = genAI.getGenerativeModel({ model: 'models/gemini-2.5-pro' });
     // Gemini's SDK currently supports text and code generation, but image generation is in preview or not generally available in the Node SDK.
     // We'll simulate the API call as if it were available, but you may need to use the REST API directly if this fails.
     try {

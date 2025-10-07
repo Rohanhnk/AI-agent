@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { runAgent } from './src/agent';
-import {tools} from './src/tools'
+import { tools } from './src/tools';
+import { memeFromDadJoke } from './src/tools/memeFromDadJoke';
 
 const userMessage = process.argv[2];
 
@@ -9,13 +10,16 @@ if (!userMessage) {
   process.exit(1);
 }
 
-
-
-
-const messages = await runAgent({ userMessage, tools})
-const assistantReply = messages[messages.length - 1]
-if (assistantReply.role === 'assistant') {
-  console.log(assistantReply.content)
+// If the user asks for a meme image from a random dad joke or to generate a dad joke, call the tool directly
+if (/meme image.*dad joke/i.test(userMessage) || /generate.*dad joke/i.test(userMessage)) {
+  const result = await memeFromDadJoke({ userMessage, toolArgs: {} });
+  console.log(result);
 } else {
-  console.log('No assistant reply found.')
+  const messages = await runAgent({ userMessage, tools });
+  const assistantReply = messages[messages.length - 1];
+  if (assistantReply.role === 'assistant') {
+    console.log(assistantReply.content);
+  } else {
+    console.log('No assistant reply found.');
+  }
 }
