@@ -12,15 +12,20 @@ export const runAgent = async ({
 }) => {
   await addMessages([{ role: 'user', content: userMessage }])
   const loader = showLoader('Thinking...')
-  const history = await getMessages()
-  // For Gemini, tools are not used in the same way as OpenAI, so pass an empty array or Gemini-compatible tools
-  const response = await runLLM({ messages: history, tools })
-  const assistantMessage = {
-    role: 'assistant',
-    content: response ?? '',
-  } as AIMessage
-  await addMessages([assistantMessage])
-  logMessage(assistantMessage)
-  loader.stop()
-  return getMessages()
+  while (true) {
+    const history = await getMessages()
+    // For Gemini, tools are not used in the same way as OpenAI, so pass an empty array or Gemini-compatible tools
+    const response = await runLLM({ messages: history, tools })
+    const assistantMessage = {
+      role: 'assistant',
+      content: response,
+    } as import('../types').AIMessage
+    await addMessages([assistantMessage])
+
+    if (response) {
+      loader.stop()
+      logMessage(assistantMessage)
+      return getMessages()
+    }
+  }
 }
